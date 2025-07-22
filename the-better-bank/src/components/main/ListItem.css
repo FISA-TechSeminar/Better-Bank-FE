@@ -1,0 +1,42 @@
+.icon-wrapper {
+  width: 40px;
+  height: 40px;
+  background-color: #f4f4f4;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.list-icon {
+  width: 25px;
+  height: 25px;
+  object-fit: contain;
+}
+
+.details {
+  flex-grow: 1;
+  margin-left: 12px;
+}
+
+.title {
+  display: block;
+  font-weight: 600;
+  font-size: 16px;
+  color: #1a1a1a;
+}
+
+.subtitle {
+  font-size: 12px;
+  color: #888;
+}
+
+.amount {
+  font-weight: bold;
+  font-size: 15px;
+  color: #1a1a1a;
+}
+
+.amount.positive {
+  color: #007aff;
+}
