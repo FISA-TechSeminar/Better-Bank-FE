@@ -5,7 +5,7 @@ body {
   font-family: "Pretendard", sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f9f9f9;
+  background-color: #ffffff;
 }
 
 .app {
@@ -42,59 +42,60 @@ body {
 
 .section-title {
   font-weight: bold;
+  margin: 10px;
 }
 
 .card {
-  background-color: #1e1f36;
-  border-radius: 16px;
-  color: white;
-  padding: 16px;
-  margin: 12px 0;
-  position: relative;
-}
-
-.card-number {
-  font-size: 18px;
-  letter-spacing: 2px;
-  margin: 12px 0;
-}
-
-.card-info {
-  font-size: 12px;
   display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.card-brand {
-  position: absolute;
-  bottom: 16px;
-  right: 16px;
-  font-weight: bold;
-}
-
-.balance-section {
-  display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
+  margin: 0px;
 }
 
-.balance {
+.card-image {
+  width: 100%;
+  max-width: 350px;
+  height: auto;
+}
+.main-account {
+  list-style: none;
+  padding: 0;
   margin: 0;
-  font-size: 20px;
 }
 
+.main-account li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 10px;
+}
+
+.divider {
+  width: 100vw;
+  height: 10px;
+  background-color: #f2f4f6;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
 .accounts-section {
-  background: #fff;
-  border-radius: 16px;
-  padding: 16px;
+  background: transparent;
+  border-radius: 0;
+  padding: 20px 10px;
 }
 
 .section-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.section-header h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
 }
 
 .sell-all {
