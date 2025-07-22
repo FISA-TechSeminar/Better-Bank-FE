@@ -1,6 +1,7 @@
 import React from "react";
 import mainLogo from "../assets/theBetterBankLogo.png";
 import wooriLogo from "../assets/wooriLogo.png";
+import tmpCard from "../assets/img_card.png";
 
 import ListItem from "../components/main/ListItem";
 import "./Main.css";
@@ -25,28 +26,23 @@ const Main = () => {
 
       <h3 className="section-title">주계좌</h3>
       <div className="card">
-        <div className="card-chip" />
-        <div className="card-number">4562 1122 4595 7852</div>
-        <div className="card-info">
-          <span>AR Jonson</span>
-          <span>Expiry Date 24/2000</span>
-          <span>CVV 6986</span>
-        </div>
-        <div className="card-brand">Mastercard</div>
+        <img src={tmpCard} alt="card" className="card-image" />
       </div>
 
-      <div className="balance-section">
-        <div className="balance-icon">🍎</div>
-        <div>
-          <h3 className="balance">74,789원</h3>
-          <span className="bank-label">더조은은행</span>
-        </div>
-      </div>
-
+      <ul className="main-account">
+        <ListItem
+          icon={mainLogo}
+          title="194,283원"
+          subtitle="더조은은행 주계좌"
+          amount=""
+          isPositive={false}
+        />
+      </ul>
+      <div className="divider" />
       <div className="accounts-section">
         <div className="section-header">
           <h3>계좌</h3>
-          <button className="sell-all">Sell All</button>
+          <button className="sell-all">details</button>
         </div>
         <ul className="account-list">
           <ListItem
