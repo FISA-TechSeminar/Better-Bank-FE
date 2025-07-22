@@ -1,38 +1,160 @@
-.App {
-  text-align: center;
+/* App.css */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
+
+body {
+  font-family: "Pretendard", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.app {
+  padding: 16px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.user-section {
+  display: flex;
+  align-items: center;
+  margin: 16px 0;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  margin-right: 12px;
+}
+
+.welcome-text .bank-name {
+  font-size: 12px;
+  color: gray;
+}
+.username {
+  margin: 0;
+}
+
+.section-title {
+  font-weight: bold;
+}
+
+.card {
+  background-color: #1e1f36;
+  border-radius: 16px;
+  color: white;
+  padding: 16px;
+  margin: 12px 0;
+  position: relative;
+}
+
+.card-number {
+  font-size: 18px;
+  letter-spacing: 2px;
+  margin: 12px 0;
+}
+
+.card-info {
+  font-size: 12px;
   display: flex;
   flex-direction: column;
+  gap: 4px;
+}
+
+.card-brand {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  font-weight: bold;
+}
+
+.balance-section {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 12px;
+  margin-bottom: 12px;
 }
 
-.App-link {
-  color: #61dafb;
+.balance {
+  margin: 0;
+  font-size: 20px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.accounts-section {
+  background: #fff;
+  border-radius: 16px;
+  padding: 16px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sell-all {
+  border: none;
+  background: none;
+  color: #007aff;
+}
+
+.transaction-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.transaction-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 12px 0;
+}
+
+.details {
+  flex-grow: 1;
+  margin-left: 12px;
+}
+
+.title {
+  font-weight: bold;
+}
+
+.subtitle {
+  font-size: 12px;
+  color: gray;
+}
+
+.amount {
+  font-weight: bold;
+}
+
+.amount.positive {
+  color: #007aff;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-around;
+  padding: 12px 0;
+  background: white;
+  position: sticky;
+  bottom: 0;
+  border-top: 1px solid #eee;
+}
+
+.tab {
+  background: none;
+  border: none;
+  font-size: 14px;
+  color: gray;
+}
+
+.tab.active {
+  color: #007aff;
 }
