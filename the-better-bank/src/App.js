@@ -1,7 +1,7 @@
-import logo from "./logo.svg";
-import "./App.css";
-
 import React from "react";
+
+import ListItem from "./components/ListItem";
+
 import "./App.css";
 
 const App = () => {
@@ -48,6 +48,13 @@ const App = () => {
           <button className="sell-all">Sell All</button>
         </div>
         <ul className="transaction-list">
+          <ListItem
+            icon="./theBetterBankLogo.png"
+            title="Apple Store"
+            subtitle="Entertainment"
+            amount="- $5,99"
+            isPositive={false}
+          />
           <li>
             <span>🍎</span>
             <div className="details">
@@ -56,39 +63,8 @@ const App = () => {
             </div>
             <span className="amount">- $5,99</span>
           </li>
-          <li>
-            <span>🎵</span>
-            <div className="details">
-              <span className="title">Spotify</span>
-              <span className="subtitle">Music</span>
-            </div>
-            <span className="amount">- $12,99</span>
-          </li>
-          <li>
-            <span>⬇️</span>
-            <div className="details">
-              <span className="title">Money Transfer</span>
-              <span className="subtitle">Transaction</span>
-            </div>
-            <span className="amount positive">$300</span>
-          </li>
-          <li>
-            <span>🛒</span>
-            <div className="details">
-              <span className="title">Grocery</span>
-              <span className="subtitle">Shopping</span>
-            </div>
-            <span className="amount">- $88</span>
-          </li>
         </ul>
       </div>
-
-      <footer className="footer">
-        <button className="tab active">🏠 Home</button>
-        <button className="tab">💳 My Cards</button>
-        <button className="tab">📊 Statistics</button>
-        <button className="tab">⚙️ Settings</button>
-      </footer>
     </div>
   );
 };
