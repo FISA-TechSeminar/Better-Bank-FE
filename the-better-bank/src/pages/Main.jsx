@@ -6,6 +6,7 @@ import bgCard from "../assets/bg_card.png";
 import mainLogo from "../assets/logo5.png";
 
 import ListItem from "../components/main/ListItem";
+import BigListItem from "../components/main/BigListItem";
 import "./Main.css";
 
 const Main = () => {
@@ -23,50 +24,47 @@ const Main = () => {
           <img src={searchBtn} alt="search" />
         </button>
       </div>
-      <div className="background-image-wrapper">
+      {/* <div className="background-image-wrapper">
         <img src={bgCard} alt="배경" className="background-image" />
-      </div>
+      </div> */}
 
       <h3 className="section-title">주계좌</h3>
       <div className="card">
         <img src={tmpCard} alt="card" className="card-image" />
       </div>
       <ul className="main-account">
-        <ListItem
+        <BigListItem
           icon={mainLogo}
           title="194,283원"
-          subtitle="더조은은행 주계좌"
-          amount=""
-          isPositive={false}
+          subtitle="더조은은행 K패스"
+          showArrow={true}
+          onClick={() => console.log("빅리스트 클릭됨")}
         />
       </ul>
       <div className="divider" />
       <div className="accounts-section">
         <div className="section-header">
           <h3>계좌</h3>
-          <button className="sell-all">details</button>
+          <button className="more-view">더보기</button>
         </div>
         <ul className="account-list">
           <ListItem
             icon={mainLogo}
             title="1,573,935원"
             subtitle="더조은은행 주계좌"
-            amount=""
-            isPositive={false}
+            onClick={() => console.log("리스트 클릭됨 1")}
           />
           <ListItem
             icon={mainLogo}
             title="194,283원"
             subtitle="더조은은행 K패스"
-            amount=""
-            isPositive={false}
+            onClick={() => console.log("리스트 클릭됨 2")}
           />
           <ListItem
             icon={mainLogo}
             title="7,194,283원"
             subtitle="더조은은행 적금 통장"
-            amount=""
-            isPositive={false}
+            onClick={() => console.log("리스트 클릭됨 3")}
           />
         </ul>
       </div>
