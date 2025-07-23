@@ -1,17 +1,21 @@
-.icon-wrapper {
-  width: 40px;
-  height: 40px;
-  background-color: #f4f4f4;
-  border-radius: 50%;
+.list-item {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  padding: 12px 0;
 }
 
 .list-icon {
-  width: 25px;
-  height: 25px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
   object-fit: contain;
+  background-color: #f4f4f4;
+}
+
+.list-icon img {
+  width: 24px;
+  height: 24px;
 }
 
 .details {
@@ -29,14 +33,4 @@
 .subtitle {
   font-size: 12px;
   color: #888;
-}
-
-.amount {
-  font-weight: bold;
-  font-size: 15px;
-  color: #1a1a1a;
-}
-
-.amount.positive {
-  color: #007aff;
 }
