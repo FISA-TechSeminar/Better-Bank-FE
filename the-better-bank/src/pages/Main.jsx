@@ -2,9 +2,8 @@ import React from "react";
 import profile from "../assets/profile.png";
 import searchBtn from "../assets/searchBtn.png";
 import tmpCard from "../assets/img_card.png";
-import mainLogo from "../assets/logo4.png";
-import wooriLogo from "../assets/wooriLogo.png";
-import hanaLogo from "../assets/hanaBank.png";
+import bgCard from "../assets/bg_card.png";
+import mainLogo from "../assets/logo5.png";
 
 import ListItem from "../components/main/ListItem";
 import "./Main.css";
@@ -24,12 +23,14 @@ const Main = () => {
           <img src={searchBtn} alt="search" />
         </button>
       </div>
+      <div className="background-image-wrapper">
+        <img src={bgCard} alt="배경" className="background-image" />
+      </div>
 
       <h3 className="section-title">주계좌</h3>
       <div className="card">
         <img src={tmpCard} alt="card" className="card-image" />
       </div>
-
       <ul className="main-account">
         <ListItem
           icon={mainLogo}
@@ -61,16 +62,9 @@ const Main = () => {
             isPositive={false}
           />
           <ListItem
-            icon={hanaLogo}
-            title="9,273,283원"
-            subtitle="하나은행 적금 통장"
-            amount=""
-            isPositive={false}
-          />
-          <ListItem
-            icon={wooriLogo}
-            title="273,283원"
-            subtitle="우리은행 체크카드 통장"
+            icon={mainLogo}
+            title="7,194,283원"
+            subtitle="더조은은행 적금 통장"
             amount=""
             isPositive={false}
           />
