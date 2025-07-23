@@ -1,0 +1,185 @@
+/* src/components/Transaction/TransactionHistory.css */
+
+
+
+.transaction-container {
+    max-width: 420px;
+    margin: 0 auto;
+    padding: 1.2rem 1rem;
+    font-family: 'Pretendard', sans-serif;
+    background-color: #fff;
+
+    /* 전체 높이 제한 및 내부 영역 스크롤을 위해 설정 */
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    box-sizing: border-box;
+}
+
+.transaction-list {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-bottom: 2rem;
+    /* 스크롤 끝에서 좀 띄우기 */
+}
+
+/* 상단 헤더 */
+.transaction-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1rem;
+}
+
+.transaction-header .title {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.icon-button {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+}
+
+/* 잔액 표시 */
+.balance {
+    margin-top: 1rem;
+    margin-left: 0.5rem;
+    text-align: left;
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  
+  .balance-highlight {
+    display: inline-block;
+    border-bottom: 6px solid #dbeafe; /* ✅ 더 두꺼운 강조선 */
+    line-height: 1;
+  }
+
+/* 이자 배너 */
+.interest-banner {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    padding: 0.3rem 0.5rem;
+    margin-bottom: 0.0rem;
+}
+
+.section-divider {
+    height: 8px;
+    background-color: #f3f4f6;
+    margin: 1rem -1rem 1rem;
+    border-radius: 6px;
+}
+
+.coin-icon {
+    width: 50px;
+    height: 50px;
+    margin-right: 0.1rem;
+}
+
+.interest-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+}
+
+.interest-text .subtitle {
+    font-size: 0.75rem;
+    color: #888;
+    margin-bottom: 0.1rem;
+}
+
+.interest-text .action {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #000;
+}
+
+.arrow {
+    font-size: 1.2rem;
+    color: #aaa;
+    margin-left: auto;
+}
+
+/* 구분선 */
+.section-divider {
+    height: 8px;
+    background-color: #f3f4f6;
+    margin: 1rem -1rem 1rem;
+    border-radius: 6px;
+}
+
+
+/* 날짜 섹션 */
+.date {
+    font-size: 0.85rem;
+    color: #888;
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+/* 거래 항목 */
+.transaction-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+}
+
+.icon-wrapper {
+    width: 40px;
+    height: 40px;
+    background-color: #f0f0f0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0.75rem;
+}
+
+.icon-img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+}
+
+
+.icon {
+    width: 32px;
+    height: 32px;
+    margin-right: 0.75rem;
+}
+
+.info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.name {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.time {
+    font-size: 0.75rem;
+    color: #aaa;
+}
+
+.amount {
+    font-size: 0.95rem;
+    font-weight: bold;
+    text-align: right;
+}
+
+.amount.positive {
+    color: #2563eb;
+}
+
+.amount.negative {
+    color: #111;
+}
