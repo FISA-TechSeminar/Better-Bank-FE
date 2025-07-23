@@ -1,7 +1,10 @@
 import React from "react";
-import mainLogo from "../assets/theBetterBankLogo.png";
-import wooriLogo from "../assets/wooriLogo.png";
+import profile from "../assets/profile.png";
+import searchBtn from "../assets/searchBtn.png";
 import tmpCard from "../assets/img_card.png";
+import mainLogo from "../assets/logo4.png";
+import wooriLogo from "../assets/wooriLogo.png";
+import hanaLogo from "../assets/hanaBank.png";
 
 import ListItem from "../components/main/ListItem";
 import "./Main.css";
@@ -9,19 +12,17 @@ import "./Main.css";
 const Main = () => {
   return (
     <div className="app">
-      <header className="header">
-        <span className="time">9:41</span>
-        <div className="right-icons">
-          <span className="search-icon">🔍</span>
-        </div>
-      </header>
-
       <div className="user-section">
-        <img src="https://i.pravatar.cc/100" alt="user" className="avatar" />
-        <div className="welcome-text">
-          <span className="bank-name">Welcome 더조은은행</span>
-          <h2 className="username">민지</h2>
+        <div className="user-info">
+          <img src={profile} alt="profile" className="avatar" />
+          <div className="user-text">
+            <span className="bank-name">Welcome 더조은은행</span>
+            <h2 className="username">민지</h2>
+          </div>
         </div>
+        <button className="search-btn">
+          <img src={searchBtn} alt="search" />
+        </button>
       </div>
 
       <h3 className="section-title">주계좌</h3>
@@ -56,6 +57,13 @@ const Main = () => {
             icon={mainLogo}
             title="194,283원"
             subtitle="더조은은행 K패스"
+            amount=""
+            isPositive={false}
+          />
+          <ListItem
+            icon={hanaLogo}
+            title="9,273,283원"
+            subtitle="하나은행 적금 통장"
             amount=""
             isPositive={false}
           />
