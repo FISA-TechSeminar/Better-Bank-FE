@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+
 import profile from "../assets/profile.png";
 import searchBtn from "../assets/searchBtn.png";
 import tmpCard from "../assets/img_card.png";
-import bgCard from "../assets/bg_card.png";
 import mainLogo from "../assets/logo5.png";
 
 import ListItem from "../components/main/ListItem";
@@ -10,6 +11,35 @@ import BigListItem from "../components/main/BigListItem";
 import "./Main.css";
 
 const Main = () => {
+  const memberId = 4;
+
+  const [username, setUsername] = useState("");
+  const [accounts, setAccounts] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`http://192.168.0.53:8080/member/${memberId}`)
+      .then((res) => {
+        console.log("GET 성공:", res.data.resultData);
+        setUsername(res.data.resultData.memberName);
+      })
+      .catch((err) => {
+        console.error("GET 실패: - 유저 정보 불러오기 실패", err);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(`http://192.168.0.53:8080/members/${memberId}/accounts`)
+      .then((res) => {
+        setAccounts(res.data.resultData);
+        console.log("GET 성공:", res.data.resultData);
+      })
+      .catch((err) => {
+        console.error("GET 실패: 계좌 목록 가져오기 실패", err);
+      });
+  }, []);
+
   return (
     <div className="app">
       <div className="user-section">
@@ -17,7 +47,7 @@ const Main = () => {
           <img src={profile} alt="profile" className="avatar" />
           <div className="user-text">
             <span className="bank-name">Welcome 더조은은행</span>
-            <h2 className="username">민지</h2>
+            <h2 className="username">{username}</h2>
           </div>
         </div>
         <button className="search-btn">
@@ -33,13 +63,15 @@ const Main = () => {
         <img src={tmpCard} alt="card" className="card-image" />
       </div>
       <ul className="main-account">
-        <BigListItem
-          icon={mainLogo}
-          title="194,283원"
-          subtitle="더조은은행 K패스"
-          showArrow={true}
-          onClick={() => console.log("빅리스트 클릭됨")}
-        />
+        {accounts[0] && (
+          <BigListItem
+            icon={mainLogo}
+            title={`${accounts[0].balance.toLocaleString()}원`}
+            subtitle={accounts[0].name}
+            showArrow={true}
+            onClick={() => console.log(`${accounts[0].name} 클릭됨`)}
+          />
+        )}
       </ul>
       <div className="divider" />
       <div className="accounts-section">
@@ -48,24 +80,15 @@ const Main = () => {
           <button className="more-view">더보기</button>
         </div>
         <ul className="account-list">
-          <ListItem
-            icon={mainLogo}
-            title="1,573,935원"
-            subtitle="더조은은행 주계좌"
-            onClick={() => console.log("리스트 클릭됨 1")}
-          />
-          <ListItem
-            icon={mainLogo}
-            title="194,283원"
-            subtitle="더조은은행 K패스"
-            onClick={() => console.log("리스트 클릭됨 2")}
-          />
-          <ListItem
-            icon={mainLogo}
-            title="7,194,283원"
-            subtitle="더조은은행 적금 통장"
-            onClick={() => console.log("리스트 클릭됨 3")}
-          />
+          {accounts.map((account) => (
+            <ListItem
+              key={account.id}
+              icon={mainLogo}
+              title={`${account.balance.toLocaleString()}원`}
+              subtitle={account.name}
+              onClick={() => console.log(`${account.name} 클릭됨`)}
+            />
+          ))}
         </ul>
       </div>
     </div>
