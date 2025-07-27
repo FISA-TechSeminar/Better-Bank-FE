@@ -2,6 +2,7 @@
 import './TransactionHistory.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; // 추가
 
 import spotifyIcon from '../../assets/spotify.png';
 import appleIcon from '../../assets/apple.png';
@@ -17,6 +18,7 @@ const parseDateArray = (arr) => {
 };
 
 export default function TransactionHistory() {
+  const navigate = useNavigate();
   const [transactionsByDate, setTransactionsByDate] = useState([]);
   const [balance, setBalance] = useState(0);
   const [interestAmount, setInterestAmount] = useState(0);
@@ -66,12 +68,9 @@ export default function TransactionHistory() {
 
   const handleReceiveInterest = async () => {
     try {
-      const res = await axios.post(
-        `http://49.173.8.203:8080/accounts/${accountId}/interest`
-      );
-      alert(`${res.data.resultData.interestReceived}원 이자 수령 완료`);
-      setBalance(res.data.resultData.newBalance);
-      setInterestAmount(0); // 초기화
+      // 페이지 이동
+      navigate('/interest-received');
+
     } catch (err) {
       console.error('이자 수령 실패:', err);
     }
