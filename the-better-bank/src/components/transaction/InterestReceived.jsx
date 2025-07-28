@@ -1,5 +1,4 @@
 import React from 'react';
-import Lottie from 'lottie-react';
 import './InterestReceived.css';
 import gifImage from '../../assets/Wallet.gif'; 
 

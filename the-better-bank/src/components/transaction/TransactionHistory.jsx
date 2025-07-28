@@ -2,7 +2,7 @@
 import "./TransactionHistory.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom"; // 추가
+import { useNavigate, useParams } from "react-router-dom"; 
 
 import spotifyIcon from "../../assets/spotify.png";
 import appleIcon from "../../assets/apple.png";
@@ -23,33 +23,44 @@ export default function TransactionHistory() {
   const [transactionsByDate, setTransactionsByDate] = useState([]);
   const [balance, setBalance] = useState(0);
   const [interestAmount, setInterestAmount] = useState(0);
+  const [lastInterestDate, setLastInterestDate] = useState(""); // 선택사항
+
 
   useEffect(() => {
-    // URL 파라미터로 받은 accountId가 유효한지 확인합니다.
-    // useParams()로 받은 값은 문자열이므로 숫자로 변환해줍니다.
     const currentAccountId = parseInt(paramAccountId, 10);
-    const Server_IP = process.env.REACT_APP_Server_IP;
+    if (isNaN(currentAccountId)) return;
+  
+    const fetchInterestAmount = async () => {
+      try {
+        const res = await axios.get(
+          `http://192.168.0.100:8080/accounts/${currentAccountId}/interest`
+        );
+        console.log("이자 정보 응답:", res.data); 
 
-    if (isNaN(currentAccountId)) {
-      console.error("유효하지 않은 계좌 ID:", paramAccountId);
-      // 유효하지 않은 accountId일 경우, 적절한 에러 처리 또는 리다이렉션을 수행할 수 있습니다.
-      // 예: navigate('/'); // 메인 페이지로 리다이렉트
-      return;
-    }
-
+        if (
+          res.data.statusCode === 200 || 
+          res.data.statusCode === "ACCEPTED"
+        ) {
+          const { interestAmount, lastInterestDate } = res.data.resultData;
+          setInterestAmount(Number(interestAmount));
+          setLastInterestDate(lastInterestDate);
+        }
+      } catch (err) {
+        console.error("이자 정보 조회 에러:", err);
+      }
+    };
+  
     const fetchTransactionData = async () => {
       try {
         console.log(`거래내역을 가져오는 계좌 ID: ${currentAccountId}`);
         const txRes = await axios.get(
           `${Server_IP}/transactionhistory/${currentAccountId}?page=0&size=20` // currentAccountId 사용
         );
-
-        console.log("거래내역 응답:", txRes.data);
-
+  
         const txData = txRes.data.resultData.transactionHistories.content;
         const fetchedBalance = txRes.data.resultData.balance;
         setBalance(fetchedBalance);
-
+  
         const grouped = txData.reduce((acc, curr) => {
           const date = new Date(
             curr.transactionDate[0],
@@ -59,34 +70,57 @@ export default function TransactionHistory() {
             month: "long",
             day: "numeric",
           });
-
+  
           if (!acc[date]) acc[date] = [];
           acc[date].push(curr);
           return acc;
         }, {});
-
+  
         const formatted = Object.entries(grouped).map(([date, items]) => ({
           date,
           items,
         }));
-
+  
         setTransactionsByDate(formatted);
       } catch (err) {
         console.error("API 연결 실패:", err);
       }
     };
-
+  
+    fetchInterestAmount();
     fetchTransactionData();
   }, [paramAccountId]);
-
+  
+  // const handleReceiveInterest = async () => {
+  //   try {
+  //     // 페이지 이동
+  //     navigate("/interest-received");
+  //   } catch (err) {
+  //     console.error("이자 수령 실패:", err);
+  //   }
+  // };
   const handleReceiveInterest = async () => {
     try {
-      // 페이지 이동
-      navigate("/interest-received");
+      const currentAccountId = parseInt(paramAccountId, 10); // accountId
+  
+      const res = await axios.get(
+        `http://192.168.0.100:8080/accounts/${currentAccountId}/receiveinterest`
+      );
+  
+      const status = res.data.statusCode?.toString().toUpperCase();
+  
+      if (status === "200" || status === "ACCEPTED") {
+        navigate("/interest-received");
+      } else {
+        alert("이자 수령 실패: " + res.data.resultMsg);
+      }
     } catch (err) {
       console.error("이자 수령 실패:", err);
+      alert("이자 수령 중 오류 발생");
     }
   };
+  
+  
   return (
     <div className="transaction-container">
       <header className="transaction-header">
@@ -104,7 +138,7 @@ export default function TransactionHistory() {
         <div className="interest-text">
           <div className="subtitle">어제까지 쌓인 이자</div>
           <div className="action">
-            {interestAmount.toLocaleString()}원 지금 받기
+            {Number(interestAmount || 0).toLocaleString()}원 지금 받기
           </div>
         </div>
         <span className="arrow">›</span>
