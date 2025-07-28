@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import profile from "../assets/profile.png";
@@ -11,14 +12,14 @@ import BigListItem from "../components/main/BigListItem";
 import "./Main.css";
 
 const Main = () => {
+  const navigate = useNavigate();
   const memberId = 4;
-
   const [username, setUsername] = useState("");
   const [accounts, setAccounts] = useState([]);
 
   useEffect(() => {
     axios
-      .get(`http://192.168.0.53:8080/member/${memberId}`)
+      .get(`http://49.173.8.203:8080/member/${memberId}`)
       .then((res) => {
         console.log("GET 성공:", res.data.resultData);
         setUsername(res.data.resultData.memberName);
@@ -30,7 +31,7 @@ const Main = () => {
 
   useEffect(() => {
     axios
-      .get(`http://192.168.0.53:8080/members/${memberId}/accounts`)
+      .get(`http://49.173.8.203:8080/members/${memberId}/accounts`)
       .then((res) => {
         setAccounts(res.data.resultData);
         console.log("GET 성공:", res.data.resultData);
@@ -39,6 +40,11 @@ const Main = () => {
         console.error("GET 실패: 계좌 목록 가져오기 실패", err);
       });
   }, []);
+
+  const handleAccountClick = (accountId, accountName) => {
+    console.log(`${accountName} 클릭됨, ID: ${accountId}`);
+    navigate(`/transactions/${accountId}`);
+  };
 
   return (
     <div className="app">
@@ -69,7 +75,7 @@ const Main = () => {
             title={`${accounts[0].balance.toLocaleString()}원`}
             subtitle={accounts[0].name}
             showArrow={true}
-            onClick={() => console.log(`${accounts[0].name} 클릭됨`)}
+            onClick={() => handleAccountClick(accounts[0].id, accounts[0].name)}
           />
         )}
       </ul>
@@ -86,7 +92,7 @@ const Main = () => {
               icon={mainLogo}
               title={`${account.balance.toLocaleString()}원`}
               subtitle={account.name}
-              onClick={() => console.log(`${account.name} 클릭됨`)}
+              onClick={() => handleAccountClick(account.id, account.name)}
             />
           ))}
         </ul>
