@@ -13,13 +13,14 @@ import "./Main.css";
 
 const Main = () => {
   const navigate = useNavigate();
-  const memberId = 4;
+  const memberId = 2;
   const [username, setUsername] = useState("");
   const [accounts, setAccounts] = useState([]);
+  const Server_IP = process.env.REACT_APP_Server_IP;
 
   useEffect(() => {
     axios
-      .get(`http://49.173.8.203:8080/member/${memberId}`)
+      .get(`${Server_IP}/member/${memberId}`)
       .then((res) => {
         console.log("GET 성공:", res.data.resultData);
         setUsername(res.data.resultData.memberName);
@@ -31,7 +32,7 @@ const Main = () => {
 
   useEffect(() => {
     axios
-      .get(`http://49.173.8.203:8080/members/${memberId}/accounts`)
+      .get(`${Server_IP}/members/${memberId}/accounts`)
       .then((res) => {
         setAccounts(res.data.resultData);
         console.log("GET 성공:", res.data.resultData);
