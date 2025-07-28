@@ -28,6 +28,7 @@ export default function TransactionHistory() {
     // URL 파라미터로 받은 accountId가 유효한지 확인합니다.
     // useParams()로 받은 값은 문자열이므로 숫자로 변환해줍니다.
     const currentAccountId = parseInt(paramAccountId, 10);
+    const Server_IP = process.env.REACT_APP_Server_IP;
 
     if (isNaN(currentAccountId)) {
       console.error("유효하지 않은 계좌 ID:", paramAccountId);
@@ -40,7 +41,7 @@ export default function TransactionHistory() {
       try {
         console.log(`거래내역을 가져오는 계좌 ID: ${currentAccountId}`);
         const txRes = await axios.get(
-          `http://49.173.8.203:8080/transactionhistory/${currentAccountId}?page=0&size=20` // currentAccountId 사용
+          `${Server_IP}/transactionhistory/${currentAccountId}?page=0&size=20` // currentAccountId 사용
         );
 
         console.log("거래내역 응답:", txRes.data);
