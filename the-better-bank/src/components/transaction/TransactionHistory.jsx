@@ -1,16 +1,15 @@
 //TransactionHistory.jsx
-import './TransactionHistory.css';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // 추가
+import "./TransactionHistory.css";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom"; // 추가
 
-import spotifyIcon from '../../assets/spotify.png';
-import appleIcon from '../../assets/apple.png';
-import interestIcon from '../../assets/interest.png';
-import coinIcon from '../../assets/coin.png';
+import spotifyIcon from "../../assets/spotify.png";
+import appleIcon from "../../assets/apple.png";
+import interestIcon from "../../assets/interest.png";
+import coinIcon from "../../assets/coin.png";
 
-import TransactionItem from './TransactionItem';
-
+import TransactionItem from "./TransactionItem";
 
 const parseDateArray = (arr) => {
   if (!arr || arr.length < 3) return new Date(); // fallback
@@ -19,63 +18,74 @@ const parseDateArray = (arr) => {
 
 export default function TransactionHistory() {
   const navigate = useNavigate();
+  const { accountId: paramAccountId } = useParams(); // URL 파라미터에서 accountId를 가져와 이름을 paramAccountId로 변경
+
   const [transactionsByDate, setTransactionsByDate] = useState([]);
   const [balance, setBalance] = useState(0);
   const [interestAmount, setInterestAmount] = useState(0);
 
-  const accountId = 4; // TODO: 실제 사용 시 동적으로 받기
-
   useEffect(() => {
+    // URL 파라미터로 받은 accountId가 유효한지 확인합니다.
+    // useParams()로 받은 값은 문자열이므로 숫자로 변환해줍니다.
+    const currentAccountId = parseInt(paramAccountId, 10);
+
+    if (isNaN(currentAccountId)) {
+      console.error("유효하지 않은 계좌 ID:", paramAccountId);
+      // 유효하지 않은 accountId일 경우, 적절한 에러 처리 또는 리다이렉션을 수행할 수 있습니다.
+      // 예: navigate('/'); // 메인 페이지로 리다이렉트
+      return;
+    }
+
     const fetchTransactionData = async () => {
       try {
+        console.log(`거래내역을 가져오는 계좌 ID: ${currentAccountId}`);
         const txRes = await axios.get(
-          `http://49.173.8.203:8080/transactionhistory/${accountId}?page=0&size=20`
+          `http://49.173.8.203:8080/transactionhistory/${currentAccountId}?page=0&size=20` // currentAccountId 사용
         );
-  
-        console.log('거래내역 응답:', txRes.data);
-  
+
+        console.log("거래내역 응답:", txRes.data);
+
         const txData = txRes.data.resultData.transactionHistories.content;
         const fetchedBalance = txRes.data.resultData.balance;
         setBalance(fetchedBalance);
-  
+
         const grouped = txData.reduce((acc, curr) => {
-          const date = new Date(curr.transactionDate[0], curr.transactionDate[1] - 1, curr.transactionDate[2])
-            .toLocaleDateString('ko-KR', {
-              month: 'long',
-              day: 'numeric',
-            });
-  
+          const date = new Date(
+            curr.transactionDate[0],
+            curr.transactionDate[1] - 1,
+            curr.transactionDate[2]
+          ).toLocaleDateString("ko-KR", {
+            month: "long",
+            day: "numeric",
+          });
+
           if (!acc[date]) acc[date] = [];
           acc[date].push(curr);
           return acc;
         }, {});
-  
+
         const formatted = Object.entries(grouped).map(([date, items]) => ({
           date,
           items,
         }));
-  
+
         setTransactionsByDate(formatted);
-  
       } catch (err) {
-        console.error('API 연결 실패:', err);
+        console.error("API 연결 실패:", err);
       }
     };
-  
+
     fetchTransactionData();
-  }, []);
-  
+  }, [paramAccountId]);
 
   const handleReceiveInterest = async () => {
     try {
       // 페이지 이동
-      navigate('/interest-received');
-
+      navigate("/interest-received");
     } catch (err) {
-      console.error('이자 수령 실패:', err);
+      console.error("이자 수령 실패:", err);
     }
   };
-
   return (
     <div className="transaction-container">
       <header className="transaction-header">
@@ -109,23 +119,26 @@ export default function TransactionHistory() {
               <TransactionItem
                 key={j}
                 icon={
-                  item.transactionType === 'INTEREST'
+                  item.transactionType === "INTEREST"
                     ? interestIcon
-                    : item.transactionName.toLowerCase().includes('apple')
+                    : item.transactionName.toLowerCase().includes("apple")
                     ? appleIcon
-                    : item.transactionName.toLowerCase().includes('spotify')
+                    : item.transactionName.toLowerCase().includes("spotify")
                     ? spotifyIcon
                     : interestIcon
                 }
                 name={item.transactionName}
-                time={parseDateArray(item.transactionDate).toLocaleTimeString('ko-KR', {
-                  hour: '2-digit',
-                  minute: '2-digit',
-                })}
+                time={parseDateArray(item.transactionDate).toLocaleTimeString(
+                  "ko-KR",
+                  {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  }
+                )}
                 amount={`${
-                  item.transactionType === 'DEPOSIT' ? '+' : '-'
+                  item.transactionType === "DEPOSIT" ? "+" : "-"
                 }${item.amount.toLocaleString()}원`}
-                positive={item.transactionType === 'DEPOSIT'}
+                positive={item.transactionType === "DEPOSIT"}
               />
             ))}
           </div>
