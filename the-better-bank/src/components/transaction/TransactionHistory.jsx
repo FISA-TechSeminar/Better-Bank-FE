@@ -25,6 +25,8 @@ export default function TransactionHistory() {
   const [interestAmount, setInterestAmount] = useState(0);
   const [lastInterestDate, setLastInterestDate] = useState(""); // 선택사항
 
+  const Server_IP = process.env.REACT_APP_Server_IP;
+
 
   useEffect(() => {
     const currentAccountId = parseInt(paramAccountId, 10);
@@ -33,7 +35,7 @@ export default function TransactionHistory() {
     const fetchInterestAmount = async () => {
       try {
         const res = await axios.get(
-          `http://192.168.0.100:8080/accounts/${currentAccountId}/interest`
+          `${Server_IP}/accounts/${currentAccountId}/interest`
         );
         console.log("이자 정보 응답:", res.data); 
 
@@ -91,20 +93,13 @@ export default function TransactionHistory() {
     fetchTransactionData();
   }, [paramAccountId]);
   
-  // const handleReceiveInterest = async () => {
-  //   try {
-  //     // 페이지 이동
-  //     navigate("/interest-received");
-  //   } catch (err) {
-  //     console.error("이자 수령 실패:", err);
-  //   }
-  // };
+
   const handleReceiveInterest = async () => {
     try {
       const currentAccountId = parseInt(paramAccountId, 10); // accountId
   
       const res = await axios.get(
-        `http://192.168.0.100:8080/accounts/${currentAccountId}/receiveinterest`
+        `${Server_IP}/accounts/${currentAccountId}/receiveinterest`
       );
   
       const status = res.data.statusCode?.toString().toUpperCase();
@@ -124,7 +119,11 @@ export default function TransactionHistory() {
   return (
     <div className="transaction-container">
       <header className="transaction-header">
-        <button className="icon-button">←</button>
+        <button className="icon-button"
+        onClick={() => navigate("/")}
+        >
+          ←
+        </button>
         <h1 className="title">더조은은행 - 주계좌</h1>
         <button className="icon-button">⟳</button>
       </header>
