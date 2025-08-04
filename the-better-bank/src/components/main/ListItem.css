@@ -9,13 +9,8 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  object-fit: contain;
+  object-fit: scale-down;
   background-color: #f4f4f4;
-}
-
-.list-icon img {
-  width: 24px;
-  height: 24px;
 }
 
 .details {

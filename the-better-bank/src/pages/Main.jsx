@@ -5,7 +5,7 @@ import axios from "axios";
 import profile from "../assets/profile.png";
 import searchBtn from "../assets/searchBtn.png";
 import tmpCard from "../assets/img_card.png";
-import mainLogo from "../assets/logo5.png";
+import icon_account from "../assets/passbook.png";
 
 import ListItem from "../components/main/ListItem";
 import BigListItem from "../components/main/BigListItem";
@@ -13,7 +13,7 @@ import "./Main.css";
 
 const Main = () => {
   const navigate = useNavigate();
-  const memberId = 2;
+  const memberId = 1;
   const [username, setUsername] = useState("");
   const [accounts, setAccounts] = useState([]);
   const Server_IP = process.env.REACT_APP_Server_IP;
@@ -72,7 +72,7 @@ const Main = () => {
       <ul className="main-account">
         {accounts[0] && (
           <BigListItem
-            icon={mainLogo}
+            icon={icon_account}
             title={`${accounts[0].balance.toLocaleString()}원`}
             subtitle={accounts[0].name}
             showArrow={true}
@@ -90,7 +90,7 @@ const Main = () => {
           {accounts.map((account) => (
             <ListItem
               key={account.id}
-              icon={mainLogo}
+              icon={icon_account}
               title={`${account.balance.toLocaleString()}원`}
               subtitle={account.name}
               onClick={() => handleAccountClick(account.id, account.name)}
