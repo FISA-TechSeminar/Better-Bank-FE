@@ -10,7 +10,7 @@
 ➡️  계층 분리로 보안/유지보수/확장성 확보 → 금융 도메인 표준 구조
 
 --- 
-<br>
+
 ## 핵심 기능
 •	💳 계좌 목록 조회: /members/:memberId/accounts  
 •	📄 계좌 상세 내역 조회: /transaction/:accountId  
@@ -21,7 +21,8 @@
 | ---- | ----------- |
 |   <img width="250" alt="image (1)" src="https://github.com/user-attachments/assets/a5211181-33fd-407e-9c02-07fa120e9f4a" />|<img width="250" alt="image (1)" src="https://github.com/user-attachments/assets/16d145de-362a-4e89-85c5-d64c789497ef" />|
 <br>
-## 기술 스택 👩🏻‍💻
+
+## 기술 스택 👩🏻‍💻  
 - React 18
 - React Router (페이지 전환: 메인 ↔ 트랜잭션)
 -	Axios (API 호출)
